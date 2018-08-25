@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.common.persistence.dao.AdMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.common.persistence.model.Ad">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="typeId" property="typeId" />
+		<result column="positionId" property="positionId" />
+		<result column="userId" property="userId" />
+		<result column="shopId" property="shopId" />
+		<result column="brandId" property="brandId" />
+		<result column="productId" property="productId" />
+		<result column="articleId" property="articleId" />
+		<result column="startTime" property="startTime" />
+		<result column="endTime" property="endTime" />
+		<result column="image" property="image" />
+		<result column="lowPrice" property="lowPrice" />
+		<result column="highPrice" property="highPrice" />
+		<result column="sortNum" property="sortNum" />
+		<result column="col" property="col" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, typeId, positionId, userId, shopId, brandId, productId, articleId, startTime, endTime, image, lowPrice, highPrice, sortNum, col
+    </sql>
+
+</mapper>

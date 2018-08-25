@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>积分统计</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <#SelectCon id="userRole" name="用户类型" >
+                                <option value="0">全部</option>
+                                <option value="1">系统用户</option>
+                                <option value="2">普通用户</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-2">
+                                <#SelectCon id="userLevel" name="用户级别" >
+                                <option value="0">全部</option>
+                                <option value="1">法人</option>
+                                <option value="2">一级股东</option>
+                                <option value="3">二级股东</option>
+                                <option value="4">核心技术部</option>
+                                <option value="5">公司公众号</option>
+                                <option value="6">员工</option>
+                                <option value="7">商家</option>
+                                <option value="8">认证会员</option>
+                                <option value="9">注册会员</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-2">
+                                <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="PointHistory.search()"/>
+                            </div>
+                        </div>
+                        <#table id="pointHistoryTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/pointHistory/pointHistory.js"></script>
+@}

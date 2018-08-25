@@ -1,0 +1,50 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="avatar" name="头像" underline="true"/>
+                            <#input id="account" name="账号" underline="true"/>
+                            <#input id="password" name="密码" underline="true"/>
+                            <#input id="salt" name="md5密码盐" underline="true"/>
+                            <#input id="name" name="名字" underline="true"/>
+                            <#input id="birthday" name="生日" underline="true"/>
+                            <#input id="sex" name="性别（1：男 2：女）" underline="true"/>
+                            <#input id="email" name="电子邮件" underline="true"/>
+                            <#input id="phone" name="电话" underline="true"/>
+                            <#input id="roleid" name="角色id" underline="true"/>
+                            <#input id="superior" name="上级id"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="superiors" name="所有上级id" underline="true"/>
+                            <#input id="status" name="状态(1：启用  2：冻结  3：删除）" underline="true"/>
+                            <#input id="createtime" name="创建时间" underline="true"/>
+                            <#input id="version" name="保留字段" underline="true"/>
+                            <#input id="level" name="用户等级" underline="true"/>
+                            <#input id="weiXin" name="微信号" underline="true"/>
+                            <#input id="stockPoints" name="库存积分" underline="true"/>
+                            <#input id="points" name="积分" underline="true"/>
+                            <#input id="cloudPoints" name="云积分" underline="true"/>
+                            <#input id="onlyPayPoints" name="消费积分" underline="true"/>
+                            <#input id="QRcode" name="二维码" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="TUserInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="TUserInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/tUser/tUser_info.js"></script>
+@}

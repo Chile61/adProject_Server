@@ -1,0 +1,12 @@
+{
+  "clientFirstCommissionLevel": 0.05,
+  "clientSecondCommissionLevel": 0.03,
+  "internalFirstCommissionLevel": 0.03,
+  "internalSecondCommissionLevel": 0.02,
+  "internalThirdCommissionLevel": 0.01,
+  "companyCommissionLevel": 0.03,
+  "technicalDepartmentCommissionLevel": 0.003,
+  "legalPersonCommissionLevel": 0.001,
+  "managerCommissionLevel": 0.001,
+  "partnerUserLevel": 6
+}

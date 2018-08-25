@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.rest.common.persistence.dao.RechargeLogMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.rest.common.persistence.model.RechargeLog">
+		<id column="id" property="id" />
+		<result column="operatorId" property="operatorId" />
+		<result column="userId" property="userId" />
+		<result column="type" property="type" />
+		<result column="points" property="points" />
+		<result column="dateTime" property="dateTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, operatorId, userId, type, points, dateTime
+    </sql>
+
+	<select id="getByUserIdAndType" resultType="map">
+		select
+		<include refid="Base_Column_List" />
+		from t_recharge_log where userId = #{userId} and type = #{type}
+	</select>
+</mapper>

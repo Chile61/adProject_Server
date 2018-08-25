@@ -1,0 +1,80 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="productId" value="${productId}">
+
+            <div class="row">
+                <div class="col-sm-12" id="itemsArea">
+                    <input type="hidden" id="itemSize" value="${images.~size!0}" />
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <#button btnCss="info" name="增加图片" icon="fa-plus" clickFun="ProductImageDlg.addItem()"/>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    @for(item in images){
+                    <div class="form-group" name="imageItem" id="imageItem${itemLP.index}">
+                        <label class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="itemDesc" value="${item.description}">
+                        </div>
+                        <label class="col-sm-2 control-label" style="width: 8%;">地址</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" id="itemImage${itemLP.index}" name="itemImage" value="${item.image}">
+                        </div>
+                        <div class="col-sm-1">
+                            <#button btnCss="info" name="上传" id="imageUploadBtn${itemLP.index}" icon="fa-upload" clickFun="ProductImageDlg.uploadImage(event)"/>
+                            <!--<div class="head-scu-btn upload-btn" id="imageUploadBtn${itemLP.index}" name="imageUploadBtn">-->
+                                <!--<i class="fa fa-upload"></i>&nbsp;上传-->
+                            <!--</div>-->
+                        </div>
+                        <div class="col-sm-1">
+                            <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="ProductImageDlg.deleteItem(event)"/>
+                        </div>
+                    </div>
+                    @}
+                </div>
+                <div class="progress progress-striped" id="progressTipArea" style="margin-top: 20px;">
+                    <div id="progressBar" style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" role="progressbar" class="progress-bar progress-bar-info">
+                    </div>
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <input type="hidden" id="productImageTemp" value=""/>
+                    <div class="head-scu-btn upload-btn" id="productImageTempBtn" style="position: absolute; visibility: hidden;">
+                        <i class="fa fa-upload"></i>&nbsp;上传
+                    </div>
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ProductImageDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ProductImageDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/template" id="itemTemplate">
+        <div class="form-group" name="imageItem" id="imageItem">
+            <label class="col-sm-2 control-label">描述</label>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" name="itemDesc">
+            </div>
+            <label class="col-sm-2 control-label" style="width: 8%;">地址</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="itemImage" id="itemImage">
+            </div>
+            <div class="col-sm-1">
+                <#button btnCss="info" name="上传" id="imageUploadBtn" icon="fa-upload" clickFun="ProductImageDlg.uploadImage(event)"/>
+                <!--<div class="head-scu-btn upload-btn" id="imageUploadBtn" name="imageUploadBtn">-->
+                    <!--<i class="fa fa-upload"></i>&nbsp;上传-->
+                <!--</div>-->
+            </div>
+            <div class="col-sm-1">
+                <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="ProductImageDlg.deleteItem(event)"/>
+            </div>
+        </div>
+    </script>
+
+    <script src="${ctxPath}/static/modular/zy/product/product_image.js"></script>
+@}

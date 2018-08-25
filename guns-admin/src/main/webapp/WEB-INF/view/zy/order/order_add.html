@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="sn" name="订单号" underline="true"/>
+                            <#input id="userId" name="下单人" underline="true"/>
+                            <#input id="shopId" name="店铺" underline="true"/>
+                            <#input id="money" name="合计金额" underline="true"/>
+                            <#input id="points" name="合计积分"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="createTime" name="下单时间" underline="true"/>
+                            <#input id="shipAddress" name="收货地址" underline="true"/>
+                            <#input id="shipName" name="收货人" underline="true"/>
+                            <#input id="shipMobile" name="收货人联系电话" underline="true"/>
+                            <#input id="remark" name="备注" underline="true"/>
+                            <#input id="state" name="状态 0未付款 1待发货 2待收货 3已收货 4退货中 5已退货" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OrderInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OrderInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/order/order_info.js"></script>
+@}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.rest.common.persistence.dao.DictMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.rest.common.persistence.model.Dict">
+		<id column="id" property="id" />
+		<result column="num" property="num" />
+		<result column="pid" property="pid" />
+		<result column="name" property="name" />
+		<result column="tips" property="tips" />
+	</resultMap>
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, num, pid, name, tips
+	</sql>
+
+	<select id="getListByMain" resultType="dict">
+		select
+		<include refid="Base_Column_List" />
+		from sys_dict where name = #{name}
+	</select>
+
+	<select id="list" resultType="dict">
+		select
+		<include refid="Base_Column_List" />
+		from sys_dict where id = #{id}
+	</select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.common.persistence.dao.ShopMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.common.persistence.model.Shop">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="type" property="type" />
+		<result column="description" property="description" />
+		<result column="userid" property="userid" />
+		<result column="QRcode" property="QRcode" />
+		<result column="category" property="category" />
+		<result column="brand" property="brand" />
+		<result column="logo" property="logo" />
+		<result column="license" property="license" />
+		<result column="state" property="state" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, typeId, description, userid, QRcode, category, brand, logo, license, state
+    </sql>
+
+	<select id="getShopTree" resultType="com.stylefeng.guns.core.node.ZTreeNode">
+		select id,0 as pId,name,false as isOpen
+		from t_shop
+	</select>
+
+	<select id="getShopName" resultType="map">
+		select
+		<include refid="Base_Column_List" />
+		from t_shop
+		where 1=1
+		<if test="shopId != null and shopId != ''">
+			and id = #{shopId}
+		</if>
+	</select>
+</mapper>

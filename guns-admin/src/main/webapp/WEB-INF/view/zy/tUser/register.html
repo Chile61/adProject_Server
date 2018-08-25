@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>用户注册</title>
+
+    <link rel="stylesheet" href="${ctxPath}/static/css/register.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>-->
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+    <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="${ctxPath}/static/js/plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/validate/bootstrapValidator.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/validate/zh_CN.js"></script>
+    <script src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script src="${ctxPath}/static/js/plugins/jquery-treegrid/extension/jquery.treegrid.extension.js"></script>
+    <script src="${ctxPath}/static/js/plugins/layer/layer.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="${ctxPath}/static/js/plugins/webuploader/webuploader.min.js"></script>
+    <script src="${ctxPath}/static/js/common/ajax-object.js"></script>
+    <script src="${ctxPath}/static/js/common/bootstrap-table-object.js"></script>
+    <script src="${ctxPath}/static/js/common/tree-table-object.js"></script>
+    <script src="${ctxPath}/static/js/common/web-upload-object.js"></script>
+    <script src="${ctxPath}/static/js/common/web-upload-multiple-object.js"></script>
+    <script src="${ctxPath}/static/js/common/ztree-object.js"></script>
+    <script src="${ctxPath}/static/js/common/Feng.js"></script>
+
+    <script type="text/javascript">
+        Feng.addCtx("${ctxPath}");
+        Feng.sessionTimeoutRegistry();
+    </script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            <form>
+
+                <div class="form-group has-feedback">
+                    <label for="account">用户名</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </span>
+                        <input id="account" class="form-control" placeholder="请输入用户名" maxlength="20" type="text">
+                    </div>
+
+                    <span style="color:red;display: none;" class="tips"></span>
+                    <span style="display: none;" class=" glyphicon glyphicon-remove form-control-feedback"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label for="password">密码</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input id="password" class="form-control" placeholder="请输入密码" maxlength="20" type="password">
+                    </div>
+
+                    <span style="color:red;display: none;" class="tips"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label for="passwordConfirm">确认密码</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input id="passwordConfirm" class="form-control" placeholder="请再次输入密码" maxlength="20" type="password">
+                    </div>
+                    <span style="color:red;display: none;" class="tips"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-xs-7">
+                        <div class="form-group has-feedback">
+                            <label for="idcode-btn">验证码</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-qrcode"></span>
+                                </span>
+                                <input id="idcode-btn" class="form-control" placeholder="请输入验证码" maxlength="4" type="text">
+                            </div>
+                            <span style="color:red;display: none;" class="tips"></span>
+                            <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-5" style="padding-top: 30px">
+                        <div id="idcode" style="background: transparent;"></div>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label for="phone">手机号码</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-phone"></span>
+                        </span>
+                        <input id="phone" class="form-control" placeholder="请输入手机号码" maxlength="11" type="text">
+                    </div>
+                    <span style="color:red;display: none;" class="tips"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="row" hidden>
+                    <div class="col-xs-7">
+                        <div class="form-group has-feedback">
+                            <label for="mscheckcode-btn">校验码</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-qrcode"></span>
+                                </span>
+                                <input id="mscheckcode-btn" class="form-control" placeholder="请输入校验码" maxlength="6" type="text">
+                                <input type="hidden" id="superior" value="${superior}">
+                            </div>
+                            <span style="color:red;display: none;" class="tips"></span>
+                            <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 text-center" style="padding-top: 26px">
+                        <button type="button" id="loadingButton" class="btn btn-primary" autocomplete="off">获取短信校验码</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control btn btn-primary" id="submit" value="立&nbsp;&nbsp;即&nbsp;&nbsp;注&nbsp;&nbsp;册" type="submit">
+                </div>
+
+                <div class="form-group">
+                    <input value="重置" id="reset" class="form-control btn btn-danger" type="reset">
+                </div>
+            </form>
+        </div>
+        <script src="${ctxPath}/static/modular/zy/tUser/register.js"></script>
+    </div>
+
+
+
+</body>
+
+</html>

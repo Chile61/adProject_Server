@@ -1,0 +1,34 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" value="${item.id}" underline="true"/>
+                            <#input id="operatorId" name="操作员id" value="${item.operatorId}" underline="true"/>
+                            <#input id="userId" name="用户id" value="${item.userId}" underline="true"/>
+                            <#input id="points" name="提现积分" value="${item.points}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="formalityRate" name="手续费率" value="${item.formalityRate}" underline="true"/>
+                            <#input id="dateTime" name="提现时间" value="${item.dateTime}" underline="true"/>
+                            <#input id="auditDateTime" name="审核时间" value="${item.auditDateTime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="WithdrawLogInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="WithdrawLogInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/withdrawLog/withdrawLog_info.js"></script>
+@}

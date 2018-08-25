@@ -1,0 +1,45 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="sn" name="订单号" value="${item.sn}" underline="true" readonly="true"/>
+                            <#input id="userId" name="下单人" value="${item.userId}" underline="true" readonly="true"/>
+                            <#input id="money" name="合计金额" value="${item.money}" underline="true" readonly="true"/>
+                            <#input id="points" name="合计积分" value="${item.points}" underline="true" readonly="true"/>
+                            <#input id="createTime" name="下单时间" value="${item.createTime}" underline="true" readonly="true"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="shipAddress" name="收货地址" value="${item.shipAddress}" underline="true"/>
+                            <#input id="shipName" name="收货人" value="${item.shipName}" underline="true"/>
+                            <#input id="shipMobile" name="收货人联系电话" value="${item.shipMobile}" underline="true"/>
+                            <#input id="remark" name="备注" value="${item.remark}" underline="true"/>
+                            <#input id="state" name="订单状态" value="${stateName}" readonly="true"/>
+                            <!--<#select id="state" name="订单状态">-->
+                                <!--<option value="0">未付款</option>-->
+                                <!--<option value="1">待发货</option>-->
+                                <!--<option value="2">待收货</option>-->
+                                <!--<option value="3">已收货</option>-->
+                                <!--<option value="4">退货中</option>-->
+                                <!--<option value="5">已退货</option>-->
+                            <!--</#select>-->
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OrderInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OrderInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/order/order_info.js"></script>
+@}

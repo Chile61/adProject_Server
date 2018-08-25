@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.rest.common.persistence.dao.UserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.rest.common.persistence.model.User">
+		<id column="id" property="id" />
+		<result column="avatar" property="avatar" />
+		<result column="account" property="account" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="sex" property="sex" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="roleid" property="roleid" />
+		<result column="superior" property="superior" />
+		<result column="superiorSecond" property="superiorSecond" />
+		<result column="superiorThird" property="superiorThird" />
+		<result column="superiors" property="superiors" />
+		<result column="status" property="status" />
+		<result column="createtime" property="createtime" />
+		<result column="cardID" property="cardID" />
+		<result column="cardType" property="cardType" />
+		<result column="cardPic" property="cardPic" />
+		<result column="level" property="level" />
+		<result column="weiXin" property="weiXin" />
+		<result column="stockPoints" property="stockPoints" />
+		<result column="points" property="points" />
+		<result column="cloudPoints" property="cloudPoints" />
+		<result column="cash" property="cash" />
+		<result column="onlyPayPoints" property="onlyPayPoints" />
+		<result column="QRcode" property="QRcode" />
+		<result column="superiorTop" property="superiorTop" />
+		<result column="phoneVerification" property="phoneVerification" />
+		<result column="verification" property="verification" />
+		<result column="managerApply" property="managerApply" />
+		<result column="managerOrder" property="managerOrder" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, avatar, account, password, salt, name, birthday, sex, email, phone,phoneVerification, roleid, superior,
+        superiorSecond, superiorThird, superiors, status, createtime, cardID,cardType,cardPic, level, weiXin, stockPoints,
+        points, cloudPoints, onlyPayPoints, QRcode, superiorTop,cash,verification,managerApply,managerOrder
+    </sql>
+	<select id="list" resultType="user">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where id = #{id}
+	</select>
+</mapper>

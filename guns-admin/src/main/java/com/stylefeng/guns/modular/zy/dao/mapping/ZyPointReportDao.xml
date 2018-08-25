@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.zy.dao.ZyPointHistoryDao">
+
+	<sql id="points_Report_User_Column_List">
+		id, avatar, account, password, salt, name, birthday, sex, email, phone,phoneVerification, roleid, superior,
+        superiorSecond, superiorThird, superiors, status, createtime, cardID,cardType,cardPic, level, weiXin, stockPoints,
+        points, cloudPoints, onlyPayPoints, QRcode, superiorTop,cash,verification,managerApply,managerOrder
+	</sql>
+	<!-- 获取用户基本信息 ok-->
+	<select id="selectAllActiveUsers" resultType="map">
+		select
+		<include refid="points_Report_User_Column_List"/>
+		from t_user
+		where status != 3
+		<if test="userLevel != null and userLevel != ''">
+			and level = #{userLevel}
+		</if>
+		<if test="userRole != null and userRole != ''">
+			and roleid = #{userRole}
+		</if>
+	</select>
+
+	<!-- 获取用户1级冲值金额合计 -->
+	<select id="selectSumFirstClientRecharge" resultType="map">
+		select
+		sum(t_points_account_journal.points) as sumFirstClientRecharge
+		from t_user,t_points_account_journal
+		where (type = 1) and (t_user.id=t_points_account_journal.userId)
+		<if test="superior != null and superior != ''">
+			and t_user.superior = #{superior}
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户1级奖励合计 -->
+	<select id="selectSumFirstClientReward" resultType="map">
+		select sum(sumFirstClientReward) as sumFirstClientReward
+		from (
+		select
+		sum(t_points_account_journal.points) as sumFirstClientReward
+		from t_user,t_points_account_journal
+		where (type = 2) and (t_user.id=t_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and t_user.id = #{userId}
+			and t_points_account_journal.fromId in (select id from t_user where superior=#{userId})
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+		union all
+		select
+		sum(t_cloud_points_account_journal.points) as sumFirstClientReward
+		from t_user,t_cloud_points_account_journal
+		where (type = 2) and (t_user.id=t_cloud_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and t_user.id = #{userId}
+			and t_cloud_points_account_journal.fromId in (select id from t_user where superior=#{userId})
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+		) as firstReward
+	</select>
+
+	<!-- 获取用户2级冲值金额合计 -->
+	<select id="selectSumSecondClientRecharge" resultType="map">
+		select
+		sum(t_points_account_journal.points) as sumSecondClientRecharge
+		from t_user,t_points_account_journal
+		where (type = 1) and (t_user.id=t_points_account_journal.userId)
+		<if test="superiorSecond != null and superiorSecond != ''">
+			and t_user.superiorSecond = #{superiorSecond}
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户2级奖励合计 -->
+	<select id="selectSumSecondClientReward" resultType="map">
+		select sum(sumSecondClientReward) as sumSecondClientReward
+		from (
+		select
+		sum(t_points_account_journal.points) as sumSecondClientReward
+		from t_user,t_points_account_journal
+		where (type = 2) and (t_user.id=t_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and t_user.id = #{userId}
+			and t_points_account_journal.fromId in (select id from t_user where superiorSecond=#{userId})
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+		union all
+		select
+		sum(t_cloud_points_account_journal.points) as sumSecondClientReward
+		from t_user,t_cloud_points_account_journal
+		where (type = 2) and (t_user.id=t_cloud_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and t_user.id = #{userId}
+			and t_cloud_points_account_journal.fromId in (select id from t_user where superiorSecond=#{userId})
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+		) as secondReward
+	</select>
+
+	<!-- 获取用户3级冲值金额合计 -->
+	<select id="selectSumThirdClientRecharge" resultType="map">
+		select
+		sum(t_points_account_journal.points) as sumThirdClientRecharge
+		from t_user,t_points_account_journal
+		where (type = 1) and (t_user.id=t_points_account_journal.userId)
+		<if test="superiorThird != null and superiorThird != ''">
+			and t_user.superiorThird = #{superiorThird}
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户3级奖励合计 -->
+	<select id="selectSumThirdClientReward" resultType="map">
+		select sum(sumThirdClientReward) as sumThirdClientReward
+		from (
+		select
+		sum(t_points_account_journal.points) as sumThirdClientReward
+		from t_user,t_points_account_journal
+		where (type = 2) and (t_user.id=t_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and t_user.id = #{userId}
+			and t_points_account_journal.fromId in (select id from t_user where superiorThird=#{userId})
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+		union all
+		select
+		sum(t_cloud_points_account_journal.points) as sumThirdClientReward
+		from t_user,t_cloud_points_account_journal
+		where (type = 2) and (t_user.id=t_cloud_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and t_user.id = #{userId}
+			and t_cloud_points_account_journal.fromId in (select id from t_user where superiorThird=#{userId})
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+		) as thirdReward
+	</select>
+
+	<!-- 获取用户全部下级冲值金额合计 -->
+	<select id="selectSumAllClientRecharge" resultType="map">
+		select
+		sum(t_points_account_journal.points) as sumAllClientRecharge
+		from t_user,t_points_account_journal
+		where (type = 1) and (t_user.id=t_points_account_journal.userId)
+		<if test="userId != null and userId != ''">
+			and (t_user.superiors like '%,${userId}'
+			or t_user.superiors like '${userId},%'
+			or t_user.superiors like '%,${userId},%')
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户统一管理奖合计 -->
+	<select id="selectSumManageReward" resultType="map">
+		select
+		sum(t_cloud_points_account_journal.points) as sumManageReward
+		from t_user,t_cloud_points_account_journal
+		where (type = 6)
+		and (t_user.id=t_cloud_points_account_journal.userId)
+		and (t_user.roleid=1) and (t_user.level&lt;=6)
+		<if test="userId != null and userId != ''">
+			and t_cloud_points_account_journal.userId = #{userId}
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户消费合计 -->
+	<select id="selectSumRecharge" resultType="map">
+		select
+		sum(t_points_account_journal.points) as sumRecharge
+		from t_points_account_journal
+		where (1 = 1)
+		<if test="userId != null and userId != ''">
+			and t_points_account_journal.userId = #{userId}
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户提现合计 -->
+	<select id="selectSumWithdraw" resultType="map">
+		select
+		sum(t_withdraw_log.points) as sumWithdraw
+		from t_withdraw_log
+		where (1 = 1)
+		<if test="userId != null and userId != ''">
+			and t_withdraw_log.userId = #{userId}
+		</if>
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (dateTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+	</select>
+
+	<!-- 获取用户下级信息 -->
+	<select id="selectClient" resultType="map">
+		select
+		id
+		from t_user
+		where status != 3
+		<if test="superior != null and superior != ''">
+			and superior = #{superior}
+		</if>
+	</select>
+
+	<!-- 获取用户冲值积分记录统计信息 -->
+	<select id="selectClientRechargePoints" resultType="map">
+		select
+		*
+		from t_points_account_journal
+		where 1 = 1 and type = 1
+		<if test="userId != null and userId != ''">
+			and userId = #{userId}
+		</if>
+	</select>
+
+	<!-- 获取用户提成积分记录统计信息 -->
+	<select id="selectClientCommissionPoints" resultType="map">
+		select
+		SUM(points) AS points
+		from t_points_account_journal
+		where 1 = 1 and type = 2
+		<if test="userId != null and userId != ''">
+			and userId = #{userId}
+		</if>
+	</select>
+
+	<!-- 获取用户提成云积分记录统计信息 -->
+	<select id="selectClientCommissionCloudPoints" resultType="map">
+		select
+		SUM(points) AS points
+		from t_cloud_points_account_journal
+		where 1 = 1 and type = 2
+		<if test="userId != null and userId != ''">
+			and userId = #{userId}
+		</if>
+	</select>
+
+	<!-- 获取用户全部下线冲值积分记录统计信息 -->
+	<select id="selectAllClientRechargePoints" resultType="map">
+		select
+		sum(points)
+		from t_points_account_journal
+		where 1 = 1 and type = 1
+		<if test="userId != null and userId != ''">
+			and userId in (
+				select id from t_user
+				where (superiors like '%.${userId}') or (superiors like '%.${userId}.%') or (superiors like '${userId}.%')
+			)
+		</if>
+	</select>
+
+	<!-- 获取用户管理奖积分记录统计信息 -->
+	<select id="selectManagePoints" resultType="map">
+		select
+		sum(points)
+		from t_points_account_journal
+		where 1 = 1 and type = 6
+		<if test="userId != null and userId != ''">
+			and userId = #{userId}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			and fromId = #{fromId}
+		</if>
+	</select>
+
+	<!-- 获取用户全部下线总人数记录统计信息 -->
+	<select id="selectAllClientCount" resultType="map">
+		select
+		count(id) as userCount
+		from t_user
+		where 1 = 1
+		<if test="userId != null and userId != ''">
+			and userId in (
+			select id from t_user
+			where (superiors like '%.${userId}') or (superiors like '%.${userId}.%') or (superiors like '${userId}.%')
+			)
+		</if>
+	</select>
+
+
+	<!-- 获取用户提现云积分记录统计信息 -->
+	<select id="selectClientWithdrawCloudPoints" resultType="map">
+		select
+		SUM(points) AS points
+		from t_cloud_points_account_journal
+		where 1 = 1 and type = 7
+		<if test="userId != null and userId != ''">
+			and userId = #{userId}
+		</if>
+	</select>
+</mapper>

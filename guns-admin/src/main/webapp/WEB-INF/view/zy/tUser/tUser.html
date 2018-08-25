@@ -1,0 +1,50 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>中盈创世用户管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="TUser.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="TUserTableToolbar" role="group">
+                            @if(shiro.hasPermission("/tUser/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="TUser.openAddTUser()"/>
+                            @}
+                            @if(shiro.hasPermission("/tUser/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="TUser.openTUserDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/tUser/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="TUser.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/tUser/deposit")){
+                            <#button name="充值积分" icon="fa-plus" clickFun="TUser.openDeposit()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/tUser/deposit_cash")){
+                            <#button name="充值现金" icon="fa-plus" clickFun="TUser.openDepositCash()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/tUser/withdraw")){
+                                <#button name="提现" icon="fa-plus" clickFun="TUser.openWithdraw()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/tUser/supbordinates")){
+                                <#button name="查看粉丝" icon="fa-plus" clickFun="TUser.readSupbordinates()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="TUserTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/tUser/tUser.js"></script>
+@}

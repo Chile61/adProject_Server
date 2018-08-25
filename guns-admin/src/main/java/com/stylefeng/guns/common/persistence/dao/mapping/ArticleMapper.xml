@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.common.persistence.dao.ArticleMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.common.persistence.model.Article">
+		<id column="id" property="id" />
+		<result column="typeId" property="typeId" />
+		<result column="userId" property="userId" />
+		<result column="title" property="title" />
+		<result column="createTime" property="createTime" />
+		<result column="startTtime" property="startTtime" />
+		<result column="endTime" property="endTime" />
+		<result column="image" property="image" />
+		<result column="content" property="content" />
+		<result column="auditorId" property="auditorId" />
+		<result column="auditorTime" property="auditorTime" />
+		<result column="publish" property="publish" />
+		<result column="sort" property="sort" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, typeId, userId, title, createTime, startTtime, endTime, image, content, auditorId, auditorTime, publish, sort
+    </sql>
+
+</mapper>

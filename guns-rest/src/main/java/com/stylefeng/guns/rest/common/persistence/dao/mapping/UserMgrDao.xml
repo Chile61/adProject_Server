@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.rest.common.persistence.dao.UserMgrDao">
+
+
+	<sql id="Base_Column_List">
+		id, avatar, account, password, salt, name, birthday, sex, email, phone,phoneVerification, roleid, superior,
+        superiorSecond, superiorThird, superiors, status, createtime, cardID,cardType,cardPic, level, weiXin, stockPoints,
+        points, cloudPoints, onlyPayPoints, QRcode, superiorTop,cash,verification,managerApply,managerOrder
+	</sql>
+
+	<select id="selectUsers" resultType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+		where status != 3
+		<if test="name != null and name != ''">
+			and (phone like CONCAT('%',#{name},'%')
+			or account like CONCAT('%',#{name},'%')
+			or name like CONCAT('%',#{name},'%'))
+		</if>
+		<if test="deptid != null and deptid != 0">
+			and (deptid = #{deptid} or deptid in ( select id from sys_dept where pids like CONCAT('%[', #{deptid}, ']%') ))
+		</if>
+		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+			and (createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+		</if>
+	</select>
+
+	<update id="setStatus">
+		update sys_user set status = #{status} where id =
+		#{userId}
+	</update>
+
+	<update id="changePwd">
+		update sys_user set password = #{pwd} where id =
+		#{userId}
+	</update>
+
+	<update id="setRoles">
+		update sys_user set roleid = #{roleIds} where id =
+		#{userId}
+	</update>
+
+	<select id="getUserMapByAccount" resultType="map">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where ((account = #{account}) or (phone = #{account})) and status != 3
+	</select>
+
+	<select id="getUserModelByAccount" resultType="User">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where account = #{account} and status != 3
+	</select>
+
+</mapper>

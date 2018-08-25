@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="title" name="标题" underline="true"/>
+                            <#input id="typeId" name="广告类别" underline="true"/>
+                            <#input id="positionId" name="广告位置" underline="true"/>
+                            <#input id="userId" name="发布人" underline="true"/>
+                            <#input id="shopId" name="发布店铺" underline="true"/>
+                            <#input id="brandId" name="对应品牌" underline="true"/>
+                            <#input id="productId" name="对应商品"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="articleId" name="对应文章" underline="true"/>
+                            <#input id="startTime" name="开始时间" underline="true"/>
+                            <#input id="endTime" name="截止时间" underline="true"/>
+                            <#input id="image" name="图片" underline="true"/>
+                            <#input id="lowPrice" name="折后价" underline="true"/>
+                            <#input id="highPrice" name="价格" underline="true"/>
+                            <#input id="sortNum" name="排序" underline="true"/>
+                            <#input id="col" name="列宽(1-12)" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="AdInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="AdInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/ad/ad_info.js"></script>
+@}

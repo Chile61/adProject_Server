@@ -1,0 +1,58 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-12" id="itemsArea">
+                    <div class="hr-line-dashed"></div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="col-sm-12 control-label">序号</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="col-sm-12 control-label">商品名称</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="col-sm-12 control-label">数量</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="col-sm-12 control-label">单价</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="col-sm-12 control-label">积分</label>
+                        </div>
+                    </div>
+                    @for(item in orderProduct){
+                    <div class="form-group" name="productsItem" id="paramItem${itemLP.index}">
+                        <div class="row">
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="id" value="${item.id}" readonly="true">
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="productName" value="${item.productName}" readonly="true">
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="num" value="${item.num}" readonly="true">
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="price" value="${item.price}" readonly="true">
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="point" value="${item.point}" readonly="true">
+                        </div>
+                        </div>
+                    </div>
+                    @}
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="ProductParamDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="${ctxPath}/static/modular/zy/order/order_info.js"></script>
+@}

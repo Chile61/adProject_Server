@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="createAt" name="创建时间" underline="true"/>
+                            <#input id="cronExpression" name="任务运行时间表达式" underline="true"/>
+                            <#input id="jobDesc" name="任务描述" underline="true"/>
+                            <#input id="groupName" name="任务组名"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="jobName" name="任务名称" underline="true"/>
+                            <#input id="jobStatus" name="任务状态 0禁用 1启用 2删除" underline="true"/>
+                            <#input id="updateAt" name="更新时间" underline="true"/>
+                            <#input id="jobSql" name="任务sql" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="QuartzjobConfigInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="QuartzjobConfigInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/quartzjobConfig/quartzjobConfig_info.js"></script>
+@}

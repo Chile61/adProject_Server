@@ -1,0 +1,40 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="typeId" name="文章类别" underline="true"/>
+                            <#input id="userId" name="发布人" underline="true"/>
+                            <#input id="title" name="标题" underline="true"/>
+                            <#input id="createTime" name="创建时间" underline="true"/>
+                            <#input id="startTtime" name="开始时间" underline="true"/>
+                            <#input id="endTime" name="截止时间"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="image" name="图片" underline="true"/>
+                            <#input id="content" name="内容" underline="true"/>
+                            <#input id="auditorId" name="审核人" underline="true"/>
+                            <#input id="auditorTime" name="审核时间" underline="true"/>
+                            <#input id="publish" name="发布" underline="true"/>
+                            <#input id="sort" name="排序" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ArticleInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ArticleInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/article/article_info.js"></script>
+@}

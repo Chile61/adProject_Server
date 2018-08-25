@@ -1,0 +1,45 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键" value="${item.id}" underline="true"/>
+                            <#input id="points" name="当前总积分" value="${item.points}" underline="true"/>
+                            <#input id="cloudPoints" name="当前总云积分" value="${item.cloudPoints}" underline="true"/>
+                            <#input id="onlyPayPoints" name="用户总消费积分" value="${item.onlyPayPoints}" underline="true"/>
+                            <#input id="dailyCloudConversionRate" name="每日云积分转换率" value="${item.dailyCloudConversionRate}" underline="true"/>
+                            <#input id="dailyCloudConverPoints" name="每日云积分" value="${item.dailyCloudConverPoints}" underline="true"/>
+                            <#input id="dailyConsumptionConversionRate" name="每日消费积分转换率" value="${item.dailyConsumptionConversionRate}" underline="true"/>
+                            <#input id="dailyConsumptionConverPoints" name="每日消费积分分" value="${item.dailyConsumptionConverPoints}" underline="true"/>
+                            <#input id="newPoints" name="转换后总积分" value="${item.newPoints}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="newCloudPoints" name="转换后总云积分" value="${item.newCloudPoints}" underline="true"/>
+                            <#input id="newOnlyPayPoints" name="转换后总消费积分" value="${item.newOnlyPayPoints}" underline="true"/>
+                            <#input id="dailyRechargeSum" name="记录每天系统充值总额" value="${item.dailyRechargeSum}" underline="true"/>
+                            <#input id="dailyWithdrawSum" name="记录每天系统提现总额" value="${item.dailyWithdrawSum}" underline="true"/>
+                            <#input id="dailyConsumptionSum" name="记录每天系统消费总额" value="${item.dailyConsumptionSum}" underline="true"/>
+                            <#input id="formalityRate" name="手续费率" value="${item.formalityRate}" underline="true"/>
+                            <#input id="createTime" name="转换时间" value="${item.createTime}" underline="true"/>
+                            <#input id="succeed" name="是否成功" value="${item.succeed}" underline="true"/>
+                            <#input id="message" name="备注" value="${item.message}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ConversionSumLogInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ConversionSumLogInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/zy/conversionSumLog/conversionSumLog_info.js"></script>
+@}

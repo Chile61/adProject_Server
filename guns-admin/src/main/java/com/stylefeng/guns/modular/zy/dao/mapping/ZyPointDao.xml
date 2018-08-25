@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.zy.dao.ZyPointDao">
+
+	<sql id="points_Column_List_WithId">
+		id, points, cloudPoints, onlyPayPoints, roleid, account, level
+	</sql>
+	<!-- 获取每个用户 -->
+	<select id="selectAllActiveUsers" resultType="map">
+		select
+		<include refid="points_Column_List_WithId"/>
+		from t_user
+		where status != 3
+	</select>
+
+	<update id="updateBatchUser" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update t_user
+			set
+			cloudPoints = ${item.cloudPoints} + ${item.dailyCloudConverPoints},
+			onlyPayPoints = ${item.onlyPayPoints} + ${item.dailyConsumptionConverPoints},
+			points = ${item.points} - ${item.dailyCloudConverPoints} - ${item.dailyConsumptionConverPoints}
+			where id = ${item.id}
+		</foreach>
+	</update>
+	
+	<insert id="insertBatchNormUserCnvLog" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			insert into t_conversion_log (
+			userId,
+			points,
+			cloudPoints,
+			onlyPayPoints,
+			dailyCloudConversionRate,
+			dailyCloudConverPoints,
+			dailyConsumptionConversionRate,
+			dailyConsumptionConverPoints,
+			newPoints,
+			newCloudPoints,
+			newOnlyPayPoints,
+			dailyWithdrawSum,
+			dailyRechargeSum,
+			formalityRate,
+			dailyConsumptionSum
+			)
+			values (
+			${item.id},
+			${item.points} - ${item.dailyRechargeSum},
+			${item.cloudPoints} + ${item.dailyWithdrawSum},
+			${item.onlyPayPoints} + ${item.dailyConsumptionSum},
+			${item.cloudConverRate},
+			${item.points} * ${item.cloudConverRate},
+			${item.consumConverRate},
+			${item.consumConverRate} * ${item.points},
+			${item.points} - ${item.points} * ${item.cloudConverRate} - ${item.consumConverRate} * ${item.points},
+			${item.cloudPoints} + ${item.points} * ${item.cloudConverRate},
+			${item.onlyPayPoints} + ${item.consumConverRate} * ${item.points},
+			${item.dailyWithdrawSum},
+			${item.dailyRechargeSum},
+			${item.formalityRate},
+			${item.dailyConsumptionSum}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertBatchPartnerUserCnvLog" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			insert into t_conversion_log (
+			userId,
+			points,
+			cloudPoints,
+			onlyPayPoints,
+			dailyCloudConversionRate,
+			dailyCloudConverPoints,
+			dailyConsumptionConversionRate,
+			dailyConsumptionConverPoints,
+			newPoints,
+			newCloudPoints,
+			newOnlyPayPoints,
+			dailyWithdrawSum,
+			dailyRechargeSum,
+			formalityRate,
+			dailyConsumptionSum
+			)
+			values (
+			${item.id},
+			${item.points} - ${item.dailyRechargeSum},
+			${item.cloudPoints} + ${item.dailyWithdrawSum},
+			${item.onlyPayPoints} + ${item.dailyConsumptionSum},
+			${item.cloudConverRate},
+			${item.points} * (${item.cloudConverRate} + ${item.consumConverRate}),
+			${item.consumConverRate},
+			0,
+			${item.points} - ${item.points} * ${item.cloudConverRate} - ${item.consumConverRate} * ${item.points},
+			${item.cloudPoints} + ${item.points} * ${item.cloudConverRate} + ${item.consumConverRate} * ${item.points},
+			${item.onlyPayPoints},
+			${item.dailyWithdrawSum},
+			${item.dailyRechargeSum},
+			${item.formalityRate},
+			${item.dailyConsumptionSum}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertBatchPartnerUserCloudJour" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		insert into t_cloud_points_account_journal (
+		userId,
+		description,
+		points
+		)
+		values (
+		${item.id},
+		${item.account},
+		${item.points} * (${item.cloudConverRate} + ${item.consumConverRate})
+		)
+	</foreach>
+	</insert>
+
+	<insert id="insertBatchNormUserCloudJour" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			insert into t_cloud_points_account_journal (
+			userId,
+			description,
+			points
+			)
+			values (
+			${item.id},
+			${item.account},
+			${item.points} * ${item.cloudConverRate}
+			)
+		</foreach>
+	</insert>
+</mapper>

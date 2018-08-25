@@ -1,0 +1,60 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>积分系统参数设置</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Param.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ParamTableToolbar" role="group">
+                            @if(shiro.hasPermission("/dailyConversion/createConversionJob")){
+                            <#button name="创建每日积分转换" icon="fa-plus" clickFun="Param.createConversionJob()" />
+                            @}
+                            @if(shiro.hasPermission("/dailyConversion/pauseConversionJob")){
+                            <#button name="暂停每日积分转换" icon="fa-plus" clickFun="Param.pauseConversionJob()" />
+                            @}
+                            @if(shiro.hasPermission("/dailyConversion/resumeConversionJob")){
+                            <#button name="恢复每日积分转换" icon="fa-plus" clickFun="Param.resumeConversionJob()" />
+                            @}
+                            @if(shiro.hasPermission("/param/add")){
+                            <#button name="添加" icon="fa-plus" clickFun="Param.openAddParam()"/>
+                            @}
+                            @if(shiro.hasPermission("/param/update")){
+                            <#button name="修改" icon="fa-plus" clickFun="Param.openParamDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/param/delete")){
+                            <#button name="删除" icon="fa-plus" clickFun="Param.delete()" space="true"/>
+                            @}
+                        </div>
+                    </div>
+                    <#table id="ParamTable"/>
+                    <div class="controls controls-row">
+                        <#input id="getCloudCommissionLevel" name="提成云积分的等级" value="${partnerUserLevel}" underline="false"/>
+                        <#input id="getCloudConversionLevel" name="转换云积分的等级" value="${partnerUserLevel}" underline="false"/>
+                        <#input id="clientFirstCommissionLevel" name="客户一级提成" value="${clientFirstCommissionLevel}" underline="false"/>
+                        <#input id="clientSecondCommissionLevel" name="客户二级提成" value="${clientSecondCommissionLevel}" underline="false"/>
+                        <#input id="internalFirstCommissionLevel" name="内部一级提成" value="${internalFirstCommissionLevel}" underline="false"/>
+                        <#input id="internalSecondCommissionLevel" name="内部二级提成" value="${internalSecondCommissionLevel}" underline="false"/>
+                        <#input id="internalThirdCommissionLevel" name="内部三级提成" value="${internalThirdCommissionLevel}" underline="false"/>
+                        <#input id="companyCommissionLevel" name="公司提成" value="${companyCommissionLevel}" underline="false"/>
+                        <#input id="technicalDepartmentCommissionLevel" name="技术提成" value="${technicalDepartmentCommissionLevel}" underline="false"/>
+                        <#button name="提交" icon="fa-plus" clickFun="" space="true"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${ctxPath}/static/modular/zy/param/param.js"></script>
+@}
